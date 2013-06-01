@@ -9,7 +9,7 @@
 
 ofxSnapshot::ofxSnapshot() {
 	snapshotKey = 's';
-	snapshotActive = false;
+	snapshotActive = takeSnapshot = false;
 	color.set(0,0,255);
 	ofRegisterKeyEvents(this);
 	ofRegisterMouseEvents(this);
@@ -34,6 +34,11 @@ void ofxSnapshot::draw(){
 		ofFill();
 		ofRect(selection);
 		ofPopStyle();
+	}else if(takeSnapshot){
+		ofRectangle selection(tl,br);
+		snapshot.grabScreen(selection.x,selection.y,selection.width,selection.height);
+		snapshot.saveImage(ofToString(ofGetElapsedTimeMillis())+".png");
+		takeSnapshot = false;
 	}
 }
 
@@ -54,11 +59,9 @@ void ofxSnapshot::mouseDragged(ofMouseEventArgs &e){
 }
 void ofxSnapshot::mouseReleased(ofMouseEventArgs &e){
 	if(isMousePressed){
-		ofRectangle selection(tl,br);
-		snapshot.grabScreen(selection.x,selection.y,selection.width,selection.height);
-		snapshot.saveImage(ofToString(ofGetElapsedTimeMillis())+".png");
 		isMousePressed = false;
 		snapshotActive = false;
+		takeSnapshot = true;
 	}
 }
 

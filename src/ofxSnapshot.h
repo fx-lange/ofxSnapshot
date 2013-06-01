@@ -28,7 +28,7 @@ public:
 	virtual void mouseMoved(ofMouseEventArgs &e){}
 protected:
 	char snapshotKey;
-	bool snapshotActive, isMousePressed;
+	bool snapshotActive, isMousePressed, takeSnapshot;
 	ofPoint tl,br;
 	ofImage snapshot;
 };
