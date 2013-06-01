@@ -26,13 +26,13 @@ void ofxSnapshot::setSnapshotKey(char key){
 void ofxSnapshot::draw(){
 	if(isMousePressed){
 		ofPushStyle();
-		ofRectangle rect(tl,br);
+		ofRectangle selection(tl,br);
 		ofSetColor(color);
 		ofNoFill();
-		ofRect(rect);
+		ofRect(selection);
 		ofSetColor(color,50);
 		ofFill();
-		ofRect(rect);
+		ofRect(selection);
 		ofPopStyle();
 	}
 }
@@ -54,6 +54,9 @@ void ofxSnapshot::mouseDragged(ofMouseEventArgs &e){
 }
 void ofxSnapshot::mouseReleased(ofMouseEventArgs &e){
 	if(isMousePressed){
+		ofRectangle selection(tl,br);
+		snapshot.grabScreen(selection.x,selection.y,selection.width,selection.height);
+		snapshot.saveImage(ofToString(ofGetElapsedTimeMillis())+".png");
 		isMousePressed = false;
 		snapshotActive = false;
 	}

@@ -30,6 +30,7 @@ protected:
 	char snapshotKey;
 	bool snapshotActive, isMousePressed;
 	ofPoint tl,br;
+	ofImage snapshot;
 };
 
 #endif /* OFXSNAPSHOT_H_ */
